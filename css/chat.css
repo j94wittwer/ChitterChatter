@@ -1,0 +1,83 @@
+html {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	height:100%;
+	width: 90%;
+	margin: 0 auto;
+	font-family: 'Cabin Condensed', sans-serif;
+
+}
+input, textarea, keygen, select, button {
+
+	font-family: 'Cabin Condensed', sans-serif;
+}
+
+h2 {
+	margin: 0;
+}
+
+.chatheader {
+	height: 3.7em;
+	width: 100%;
+	text-align: center;
+	overflow-y: visible;
+}
+
+.chatheader ul {
+	list-style: none;
+	display: inline;
+    padding: 0;
+    margin: 0;
+	cursor: pointer;
+	background-color: white;
+}
+
+.chatheader ul li ul * {
+	visibility: hidden;
+	background-color: white;
+}
+
+.chatheader ul li:hover ul li {
+	visibility: visible;
+}
+
+.chatbody {
+	border: 1px solid black;
+	height: calc(100% - 7.2em);
+	width: 100%;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+#arrow{
+	position:fixed;
+	top: 95%;
+    width: 100px;
+    left: 50%;
+    transform: translate(-50%, -100%);
+	display:none;
+}
+
+.chatbody img iframe {
+	z-index: 0;
+}
+
+.chatfooter {
+	height: 3em;
+	width: 100%;
+}
+
+.chatfooter button {
+	display: inline-block;
+	margin-top: 1px;
+	width: 45px;
+	float: right;
+}
+
+.chatfooter input {
+	display: inline-block;
+	margin-top: 1px;
+	width: calc(100% - 50px);
+}

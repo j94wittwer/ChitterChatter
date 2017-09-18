@@ -1,0 +1,74 @@
+html {
+	background-color:#ededed;
+}
+body{
+	margin:auto;
+	background-color:#c5c5c5;
+	width:80%;
+	height:100%;
+	font-family: 'Cabin Condensed', sans-serif;
+}
+header h2{
+	float:right;
+	font-size:300%;
+    padding-right: 50px;
+}
+.imgheader{
+	height:150px;
+
+}
+input, textarea, keygen, select, button {
+
+	font-family: 'Cabin Condensed', sans-serif;
+}
+nav{
+	text-align:center;
+}
+nav a{
+	padding-right:10px;
+}
+a{
+	color:rgb(44, 167, 213);
+	text-decoration:none;
+}
+a:hover{
+	color:rgb(163, 240, 163);
+}
+.content{	
+	height:59%;
+	text-align:center;
+}
+.infodiv{
+	position:fixed;
+	background-color:#7d7d7d;
+	padding:10px;
+	width:150px;
+	border-radius:10px;
+	color:white;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	display:none;
+}
+.chatrooms{
+    width: 80%;
+    background-color: #20cf20;
+    border-radius: 10px;
+    padding: 10px;
+    margin: auto;
+}
+
+.listedroom {
+	display: inline;
+}
+.impressum{
+	width:80%;
+	margin:auto;
+}
+footer{
+	text-align:center;
+	font-size:100%; 
+}
+footer span{
+	padding-right:10px;
+}
