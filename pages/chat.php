@@ -35,11 +35,11 @@
 				?>
 			</li></ul>
 	</div>
-	<div class="chatbody"id="chat">
+	<div class="chatbody" id="chat">
 	
 		
 	
-	<img id="arrow" alt="arrow_down"src="../img/arrow_down.png">
+	<img id="arrow" alt="arrow_down" src="../img/arrow_down.png">
 	</div>
 	<div class="chatfooter">
 		<form method="post" id="chatform" action="../resources/upload.php" enctype="multipart/form-data">
