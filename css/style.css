@@ -1,5 +1,6 @@
 html {
 	background-color:#ededed;
+	height: 100%;
 }
 body{
 	margin:auto;
@@ -66,8 +67,11 @@ a:hover{
 	margin:auto;
 }
 footer{
-	text-align:center;
-	font-size:100%; 
+	text-align: center;
+	font-size: 100%;
+	position: absolute;
+	bottom: 0;
+	width: 80%;
 }
 footer span{
 	padding-right:10px;

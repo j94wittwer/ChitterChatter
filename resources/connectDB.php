@@ -1,6 +1,10 @@
 ﻿<?php
+session_start();
 
-	session_start();
+/**
+ * Baut eine SQL Verbindung zur Datenbank auf.
+ */
+
 	function connectDB(){
 		$servername = "localhost";
 		$username = "root";
@@ -17,7 +21,11 @@
 		mysqli_set_charset ( $conn, "utf8" );
 		return $conn;
 	}
-	
+
+/**
+ * Sucht mittels ID einen User aus der Datenbank
+ * @return Username
+ */
 	function findUserName() {
 		$conn = connectDB();
 		$userid = $_SESSION['userid'];
@@ -31,7 +39,11 @@
 		mysqli_close($conn);
 		return $userName;
 	}
-	
+
+/**
+ * Mittels RoomId in der Session wird der Raumname gesucht
+ * @return Roomname
+ */
 	function findRoomName(){
 		$conn = connectDB();
 		$roomid = $_SESSION['roomid'];
@@ -46,6 +58,10 @@
 		return $roomName;
 	}
 
+/**
+ * Findet den Owner vom chatraum mittels Roomid
+ * @return OwnerName
+ */
 	function findOwnerName(){
 		$conn = connectDB();
 		$roomid = $_SESSION['roomid'];
@@ -62,7 +78,10 @@
 		mysqli_close($conn);
 		return $ownerName;
 	}
-	
+
+/**
+ * Listet alle Chaträume auf. Je nachdem, ob er User der Owner ist, werden zwei weiter Formulare mitgegeben.
+ */
 	function getRoomList(){
 		$conn = connectDB();
 		$userid = $_SESSION['userid'];
@@ -106,7 +125,13 @@
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Funktion zum verschicken einer neuen Nachricht
+ * @param $message Nachricht zum verschicken
+ * @param $userid UserId vom user, welcher die Nachricht verschickt.
+ * @param $roomid Roomid in welchem eine Nachricht verschickt wurde.
+ */
 	function sendMessage($message, $userid, $roomid){
 		$conn = connectDB();
 		if ($message != ""){
@@ -118,32 +143,44 @@
 		}
 		mysqli_close($conn);
 	}
-	
-	if (isset ($_REQUEST['login'])){
-		$conn = connectDB();
-		$name = $_POST['name'];
-		$pass = $_POST['pass'];
-		setSession($name, $pass);
-	}
-	
-	function setSession($name, $pass){
-		$conn = connectDB();
-		$stmt = mysqli_stmt_init($conn);
-		$stmt = mysqli_prepare($conn, "SELECT U_ID, password FROM user WHERE username=?;");
-		mysqli_stmt_bind_param($stmt, 's', $name);
-		mysqli_stmt_execute($stmt);
-		mysqli_stmt_bind_result($stmt, $userid, $userpass);
-		mysqli_stmt_fetch($stmt);
-		if ($userid !== false &&  password_verify($pass, $userpass)){
-			$_SESSION['userid'] = $userid;
-			header("Location: account");
-		} else {	
-			header("Location: login?id=error");
-		}
-		mysqli_stmt_close($stmt);	
-		mysqli_close($conn);
-	}
-	
+
+/**
+ * Lädt einen user von der Datenbank, und überprüft, ob das Passwort übereinstimmt. Falls ja wird die Session gesetzt.
+ * und der User wird weiter geleitet.
+ * @param $name Name vom user
+ * @param $pass Passwort vom User
+ */
+    function setSession($name, $pass){
+        $conn = connectDB();
+        $stmt = mysqli_stmt_init($conn);
+        $stmt = mysqli_prepare($conn, "SELECT U_ID, password FROM user WHERE username=?;");
+        mysqli_stmt_bind_param($stmt, 's', $name);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $userid, $userpass);
+        mysqli_stmt_fetch($stmt);
+        if ($userid !== false &&  password_verify($pass, $userpass)){
+            $_SESSION['userid'] = $userid;
+            header("Location: account");
+        } else {
+            header("Location: login?id=error");
+        }
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+    }
+
+/**
+ * Fängt die Login Anfrage ab.
+ */
+    if (isset ($_REQUEST['login'])){
+        $conn = connectDB();
+        $name = $_POST['name'];
+        $pass = $_POST['pass'];
+        setSession($name, $pass);
+    }
+
+/**
+ * Fängt eine Registration ab und fügt sie in die Datbank ein.
+ */
 	if (isset ($_REQUEST['register'])){
 		$conn = connectDB();
 		$name = filter_var((mysqli_real_escape_string(connectDB(), $_POST['name'])),FILTER_SANITIZE_STRING);
@@ -166,7 +203,10 @@
 		mysqli_stmt_close($stmt);	
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Fängt die Abfrage für die Änderung vom Passwort ab.
+ */
 	if (isset ($_REQUEST['changepw'])){
 		$conn = connectDB();
 		$name = filter_var((mysqli_real_escape_string(connectDB(), $_POST['name'])),FILTER_SANITIZE_STRING);
@@ -187,7 +227,10 @@
 		mysqli_stmt_close($stmt);	
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Fängt die Abfrage für das Erstellen eines neue Chat ab und erstellt diesen, sollte alles korrekt sein.
+ */
 	if (isset ($_REQUEST['newchat'])){
 		$conn = connectDB();
 		$roomname = $_POST['name'];
@@ -210,7 +253,11 @@
 		mysqli_stmt_close($stmt2);		
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Gibt alle user zurück, welche hinzugefügt werden können. Bereits hinzugefügt User werden beispielsweise nicht angezeigt
+ * @param $roomid Roomid, bei welcher Users hinzugefügt werden sollen.
+ */
 	function getAddableUserList($roomid){
 		$conn = connectDB();
 		$stmt = mysqli_stmt_init($conn);
@@ -233,7 +280,11 @@
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Gibt alle user zurück, welche entfernt werden können. Bereits entfernte User werden beispielsweise nicht angezeigt
+ * @param $roomid Roomid, bei welcher Users entfernt werden sollen.
+ */
 	function getRemovableUserList($roomid){
 		$conn = connectDB();
 		$userid = $_SESSION['userid'];
@@ -257,7 +308,10 @@
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Fängt die Anfrage ab, welche einen neuen User hinzufügt, überprüft alles und fügt ihn anschliessend hinzu.
+ */
 	if (isset ($_REQUEST['adduser'])) {
 		$conn = connectDB();
 		$roomid = $_POST['roomid'];
@@ -269,7 +323,10 @@
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Fängt die Anfrage ab, welche einen User entfernt. überprüft alles und entfernt den user anschliessend.
+ */
 	if (isset ($_REQUEST['removeuser'])) {
 		$conn = connectDB();
 		$roomid = $_POST['roomid'];
@@ -281,7 +338,10 @@
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}
-	
+
+/**
+ * Zeigt alle User an, welche im Chatraum sind mittels Session.
+ */
 	function getUserList(){
 		$conn = connectDB();
 		$stmt = mysqli_stmt_init($conn);
@@ -297,6 +357,12 @@
 		mysqli_close($conn);
 	}
 
+/**
+ * Gibt eine neue Nachricht zurück
+ * @param $roomid Chatraum, bei welchem auf neue Nachrichten überprüft wird.
+ * @param $lastmessageid Id von der letzt erhalten Message
+ * @return int Gibt 0 zurück, sollte es keine neue Nachricht geben.
+ */
 	function getMessage($roomid, $lastmessageid) {
 		if (!isset($roomid)){
 		echo "<script>window.close();</script>";
@@ -327,7 +393,12 @@
 		}
 		return 0;
 	}
-	
+
+/**
+ * Damit Umlaute korrekt dargestllt werden, überprüft diese Funktion auf Umlaute und ersetzt diese mit der html kompatiblen Zeichen.
+ * @param $message Die zu überprüfende Nachricht
+ * @return Angepasste Nachricht.
+ */
 	function checkForUmlaut($message){
 		$newmessage = $message;
 		$umlautarray = [

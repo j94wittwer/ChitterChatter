@@ -33,6 +33,11 @@
 	}
 	return 0;
 
+/**
+ * Übersetzt die eingegebene Strings, damit die Emojis als Foto angezeigt werden.
+ * @param $message Nachricht, welche auf emojis überprüft.
+ * @return Neue Nachricht welche eventuell <img> tags enthält.
+ */
 	function checkForEmoji($message){
 			
 	$emojiarray = [
