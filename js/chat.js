@@ -5,8 +5,9 @@ $(document).ready(function(){
 	var newMessageCounter = 0;
 	$('#sendmessage').click(function(){
 		sendmessage();
-		
 	});
+
+
 	$('#arrow').click(function(){
 		$('#chat').animate({ scrollTop: $('#chat')[0].scrollHeight }, 600);
 	});
@@ -67,6 +68,7 @@ $(document).ready(function(){
 		$('#message').val("");
 		}
 	}
+
 	function playSound($filename){
 		/*if($filename){
 			var audio = new Audio('../sound/referee.mp3');

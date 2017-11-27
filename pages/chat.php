@@ -4,7 +4,11 @@
 		header("Location: login");
 	}
 	if (isset ($_REQUEST['openchat'])){
-		$_SESSION['roomid'] = $_POST['roomid'];
+	    if($_GET['roomid'] == '') {
+            $_SESSION['roomid'] = $_POST['roomid'];
+        } else {
+            $_SESSION['roomid'] = $_GET['roomid'];
+        }
 		$_SESSION['lastmessageid'] = 0;
 	}
 		
@@ -38,9 +42,14 @@
 	<img id="arrow" alt="arrow_down"src="../img/arrow_down.png">
 	</div>
 	<div class="chatfooter">
-		<form method="post" id="chatform">
-			<input type="text" id="message" name="chatinput" placeholder="Nachricht eingeben..." autocomplete="off"></input>
-			<button  type="button" name="chatten" id="sendmessage">send</button>
+		<form method="post" id="chatform" action="../resources/upload.php" enctype="multipart/form-data">
+			<input type="text" id="message" name="chatinput" placeholder="Nachricht eingeben..." autocomplete="off"/>
+            <button  type="button" name="chatten" id="sendmessage">Send</button>
+            <span style="float:right">
+                <input type="file" name="fileToUpload" id="fileToUpload"/>
+                <button type="submit" id="sendfile">Send File</button>
+                <span
+            </span>
 		</form>
 	</div>
 </body>
