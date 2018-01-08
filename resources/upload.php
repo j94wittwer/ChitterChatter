@@ -1,4 +1,11 @@
 <?php
+/**
+ * Upload von Files werden hier verarbeitet und gespeichert.
+ *
+ * Marc Liechti
+ * 1.0
+ * 18.12.2017
+ */
     require 'connectDB.php';
     $target_dir = "../files/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -18,8 +25,6 @@
         $result= "Sorry, your file was not uploaded.";
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-
-
             sendMessage($target_file, $userid, $roomid);
             $result= "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         } else {
@@ -27,4 +32,4 @@
         }
     }
 
-    header('Location: ../pages/chat.php?roomid='.$roomid.'?result='.$result);
+    header('Location: ../pages/chat.php?roomid='.$roomid.'?result='.$result.'', false);

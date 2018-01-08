@@ -1,4 +1,11 @@
 <?php
+/**
+ * Dispatcher der Webseite, Auf dem .htaccess werden alle Aufrufe hierhin umgeleitet und über ein Switchstatement verarbeitet
+ *
+ * Robin Berberat
+ * 1.0
+ * 18.12.2017
+ */
 	require_once 'resources/build.php';
 	$url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 	

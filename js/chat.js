@@ -1,3 +1,11 @@
+/**
+ * chat JavaScript Flie. Lädt neue Nachrichten, sendet neue und andere Kleinigkeiten
+ *
+ * Silas Meier
+ * 1.0
+ * 18.12.2017
+ */
+
 $(document).ready(function(){
 	change_favicon("/img/WLM_logo.svg.png");
 	var documentTitle = document.title;
@@ -70,11 +78,6 @@ $(document).ready(function(){
 	}
 
 	function playSound($filename){
-		/*if($filename){
-			var audio = new Audio('../sound/referee.mp3');
-		}else{
-			var audio = new Audio('../sound/Speech On.wav');
-		}*/
 		var audio = new Audio('../sound/'+$filename+'');
 		audio.play();
 	}

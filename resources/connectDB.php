@@ -2,7 +2,11 @@
 session_start();
 
 /**
- * Baut eine SQL Verbindung zur Datenbank auf.
+ * Baut eine SQL Verbindung zur Datenbank auf. Verarbeitet anfragen, Speichert Dateien...
+ *
+ * Silas Meier
+ * 1.0
+ * 18.12.2017
  */
 
 	function connectDB(){
@@ -146,7 +150,7 @@ session_start();
 
 /**
  * Lädt einen user von der Datenbank, und überprüft, ob das Passwort übereinstimmt. Falls ja wird die Session gesetzt.
- * und der User wird weiter geleitet.
+ * und der User wird weitergeleitet.
  * @param $name Name vom user
  * @param $pass Passwort vom User
  */
@@ -325,7 +329,7 @@ session_start();
 	}
 
 /**
- * Fängt die Anfrage ab, welche einen User entfernt. überprüft alles und entfernt den user anschliessend.
+ * Fängt die Anfrage ab, welche einen User entfernt. überprüft alles und entfernt den User anschliessend.
  */
 	if (isset ($_REQUEST['removeuser'])) {
 		$conn = connectDB();

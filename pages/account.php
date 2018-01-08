@@ -1,7 +1,11 @@
 <?php
-	/*
-		$userid nimmt die ID des eingeloggten Benutzer. 
-		Anschliessend wird der Name und die ID des Benutzer abgefragt und ausgegeben.
+	/**
+	 *	$userid nimmt die ID des eingeloggten Benutzer.
+	 *	Anschliessend wird der Name und die ID des Benutzer abgefragt und ausgegeben.
+     *
+     * Silas Meier
+     * 1.0
+     * 18.12.2017
 	*/
 	$userid = $_SESSION['userid'];
 	$abfrage = mysqli_query(connectDB(),"SELECT * FROM user WHERE u_id = '$userid'");

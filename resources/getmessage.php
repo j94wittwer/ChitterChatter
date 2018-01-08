@@ -1,4 +1,11 @@
 <?php
+/**
+ * Schnittstelle für JavaScript, damit die Nachrichte geladen werden
+ *
+ * Jonas Witter
+ * 1.0
+ * 18.12.2017
+ */
 	require 'connectDB.php';
 	$roomid = $_SESSION['roomid'];
 	if (!isset($_SESSION['roomid'])){
@@ -25,11 +32,18 @@
 		$color = $colorarray[$userid % 8];
 		if ($_SESSION['date'] != date('Y-m-d', strtotime($ergebnis['time']))){
 			$_SESSION['date'] = date('Y-m-d', strtotime($ergebnis['time']));
-			echo "<br /><div style='color: black;'>Heute ist der ".date('Y-m-d', strtotime($ergebnis['time']))."!</div><br />";
+			echo "<br /><div style='color: black;'>---DATUM: ".date('Y-m-d', strtotime($ergebnis['time']))."!</div><br />";
 		}
-		echo 
-		"<div style='color: $color;margin-bottom:2px;'><div style='min-width:180px; display: inline-block;'>$time - ".checkForUmlaut($username).":</div>".checkForEmoji(checkForUmlaut($message))."</div>"
-		;
+        if (file_exists($message)) {
+            echo
+                "<div style='color: $color;margin-bottom:2px;'><div style='min-width:180px; display: inline-block;'>$time - ".checkForUmlaut($username).":</div>
+                    <a href=".$message." download>Download link</a>
+                </div>"
+            ;
+        } else {
+            echo
+                "<div style='color: $color;margin-bottom:2px;'><div style='min-width:180px; display: inline-block;'>$time - " . checkForUmlaut($username) . ":</div>" . checkForEmoji(checkForUmlaut($message)) . "</div>";
+        }
 	}
 	return 0;
 

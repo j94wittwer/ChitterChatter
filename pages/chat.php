@@ -1,16 +1,24 @@
 <?php
+
+/**
+ * Diese Seite wird geöffnet, wenn ein neuer chat geöffnet wird. Sie beinhaltet 2 Forms für das veschicken von nachrichten und Files
+ *
+ * Silas Meier
+ * 1.0
+ * 18.12.2017
+ */
 	include "../resources/connectDB.php";
 	if (!isset($_SESSION['userid'])){
 		header("Location: login");
 	}
-	if (isset ($_REQUEST['openchat'])){
-	    if($_GET['roomid'] == '') {
-            $_SESSION['roomid'] = $_POST['roomid'];
-        } else {
-            $_SESSION['roomid'] = $_GET['roomid'];
-        }
-		$_SESSION['lastmessageid'] = 0;
-	}
+
+    if($_GET['roomid'] == '') {
+        $_SESSION['roomid'] = $_POST['roomid'];
+    } else {
+        $_SESSION['roomid'] = $_GET['roomid'];
+    }
+    $_SESSION['lastmessageid'] = 0;
+
 		
 ?>
 <!DOCTYPE html>
@@ -34,11 +42,10 @@
 					getUserList();
 				?>
 			</li></ul>
+        <?php echo htmlspecialchars($_GET['result']); var_dump($_GET['result'])?>
 	</div>
 	<div class="chatbody" id="chat">
-	
-		
-	
+
 	<img id="arrow" alt="arrow_down" src="../img/arrow_down.png">
 	</div>
 	<div class="chatfooter">
@@ -47,8 +54,7 @@
             <button  type="button" name="chatten" id="sendmessage">Send</button>
             <span style="float:right">
                 <input type="file" name="fileToUpload" id="fileToUpload"/>
-                <button type="submit" id="sendfile">Send File</button>
-                <span
+                <button type="submit" id="sendfile" name="openchat">Send File</button>
             </span>
 		</form>
 	</div>
